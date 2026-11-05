@@ -79,7 +79,7 @@ export default function CalendarGrid({
 
   return (
     <div className="bg-white border border-[#101010]/20 p-6 sm:p-7">
-      {/* Cabecera de Días de la Semana */}
+      {/* Días de la semana */}
       <div className="grid grid-cols-7 gap-2 mb-3 text-center border-b border-[#101010]/15 pb-2">
         {weekDays.map((wd) => (
           <div
@@ -91,7 +91,7 @@ export default function CalendarGrid({
         ))}
       </div>
 
-      {/* Grilla de Celdas de Días */}
+      {/* Días del mes */}
       <div className="grid grid-cols-7 gap-2">
         {calendarCells.map((cell) => {
           if (cell.isEmpty) {
@@ -142,7 +142,7 @@ export default function CalendarGrid({
                 )}
               </div>
 
-              {/* Indicadores de ocupación por estado */}
+              {/* Puntos de confirmadas y pendientes */}
               {cell.count > 0 ? (
                 <div className="space-y-1">
                   <div className="flex items-center gap-1">
@@ -177,7 +177,7 @@ export default function CalendarGrid({
         })}
       </div>
 
-      {/* Leyenda de Densidad con Opacidades */}
+      {/* Leyenda de colores */}
       <div className="mt-6 pt-4 border-t border-[#101010]/15 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-[#101010]/80">
         <div className="flex items-center gap-2">
           <span className="uppercase text-[11px] font-bold">Densidad:</span>

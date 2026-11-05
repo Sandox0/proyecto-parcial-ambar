@@ -103,7 +103,7 @@ export default function PaymentStep({
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        {/* DATOS DE PAGO */}
+        {/* Datos de pago */}
         <div className="lg:col-span-2 space-y-8">
           <div>
             <span className="text-xs uppercase font-mono tracking-[0.25em] text-[#6F1D1B] font-bold">
@@ -285,7 +285,7 @@ export default function PaymentStep({
           </div>
         </div>
 
-        {/* RESUMEN */}
+        {/* Resumen */}
         <aside className="bg-[#101010] text-[#F3F3F3] p-6 space-y-4 h-fit" aria-label="Resumen del pago">
           <span className="text-[11px] uppercase font-mono tracking-[0.2em] text-[#919191]">Resumen</span>
           <dl className="space-y-3 text-sm font-mono">

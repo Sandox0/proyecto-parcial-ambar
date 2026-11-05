@@ -18,17 +18,17 @@ export default function BookingSuccess() {
   const location = useLocation()
   const navigate = useNavigate()
 
-  // Extraer exclusivamente la reserva real pasada desde el wizard
+  // Toma la reserva que mandó el asistente de reserva
   const reservation = location.state?.reservation
 
-  // Redirección reactiva si se pierde el estado o se accede directamente por URL
+  // Si entran directo por la URL, vuelve a /reservar
   useEffect(() => {
     if (!reservation) {
       navigate('/reservar', { replace: true })
     }
   }, [reservation, navigate])
 
-  // Evitar renderizado de datos falsos si no hay reserva real
+  // Si no hay reserva, no muestra nada
   if (!reservation) {
     return <Navigate to="/reservar" replace />
   }
@@ -39,7 +39,7 @@ export default function BookingSuccess() {
 
   return (
     <div className="py-12 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto font-golos text-[#101010]">
-      {/* Encabezado de Agradecimiento */}
+      {/* Título */}
       <div className="text-center mb-10 space-y-3">
         <div className="w-16 h-16 mx-auto bg-[#6F1D1B]/15 border border-[#6F1D1B] text-[#6F1D1B] flex items-center justify-center shadow-xs">
           <CheckCircle2 className="w-8 h-8 text-[#6F1D1B]" aria-hidden="true" />
@@ -56,9 +56,9 @@ export default function BookingSuccess() {
         </p>
       </div>
 
-      {/* Voucher Digital Oficial */}
+      {/* Voucher */}
       <div className="bg-white border border-[#101010]/20 shadow-xl overflow-hidden print:shadow-none print:border-[#101010]">
-        {/* Cabecera del Voucher */}
+        {/* Parte de arriba del voucher */}
         <div className="bg-[#101010] text-[#F3F3F3] p-6 sm:p-8 flex items-center justify-between border-b border-[#F3F3F3]/15">
           <div>
             <div className="flex items-center gap-2">
@@ -81,9 +81,9 @@ export default function BookingSuccess() {
           </div>
         </div>
 
-        {/* Cuerpo del Voucher */}
+        {/* Datos del voucher */}
         <div className="p-6 sm:p-8 space-y-6">
-          {/* Fila Principal: Titular y Experiencia */}
+          {/* Titular y experiencia */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pb-6 border-b border-[#101010]/10">
             <div>
               <span className="text-[11px] uppercase tracking-[0.15em] text-[#101010]/60 font-mono block">
@@ -119,7 +119,7 @@ export default function BookingSuccess() {
             </div>
           </div>
 
-          {/* Fila Secundaria: Fecha, Hora y Comensales */}
+          {/* Fecha, hora y comensales */}
           <div className="grid grid-cols-3 gap-3 p-4 bg-[#F3F3F3] border border-[#101010]/15 text-center">
             <div>
               <Calendar className="w-4 h-4 mx-auto text-[#6F1D1B] mb-1" aria-hidden="true" />
@@ -138,7 +138,7 @@ export default function BookingSuccess() {
             </div>
           </div>
 
-          {/* Pago de garantía */}
+          {/* Garantía pagada */}
           {reservation.payment && (
             <div className="flex items-center justify-between p-4 bg-[#F3F3F3] border border-[#101010]/15 text-xs font-mono">
               <span className="uppercase tracking-wider text-[#101010]/60">Garantía pagada</span>
@@ -149,7 +149,7 @@ export default function BookingSuccess() {
             </div>
           )}
 
-          {/* Notas especiales si existen */}
+          {/* Notas (si hay) */}
           {reservation.notes && (
             <div className="p-4 bg-[#F3F3F3] border-l-2 border-[#6F1D1B] text-xs space-y-1">
               <span className="font-mono text-[10px] uppercase tracking-wider text-[#101010]/60 block">
@@ -161,7 +161,7 @@ export default function BookingSuccess() {
             </div>
           )}
 
-          {/* Recomendaciones de la Casa */}
+          {/* Recomendaciones */}
           <div className="pt-2 text-xs font-mono text-[#101010]/70 space-y-2 border-t border-[#101010]/10">
             <p className="flex items-center gap-2">
               <MapPin className="w-3.5 h-3.5 text-[#6F1D1B] shrink-0" aria-hidden="true" />
@@ -179,7 +179,7 @@ export default function BookingSuccess() {
         </div>
       </div>
 
-      {/* Acciones al pie */}
+      {/* Botones del final */}
       <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 print:hidden">
         <button
           type="button"

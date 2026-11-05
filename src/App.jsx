@@ -37,17 +37,17 @@ export default function App() {
     <ReservationProvider>
       <BrowserRouter>
         <Routes>
-          {/* MÓDULO CLIENTE (Rutas Públicas) */}
+          {/* Rutas del cliente */}
           <Route element={<ClientLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/reservar" element={<BookingWizard />} />
             <Route path="/reserva-exitosa" element={<BookingSuccess />} />
           </Route>
 
-          {/* MÓDULO ADMINISTRADOR (Autenticación) */}
+          {/* Login del admin */}
           <Route path="/admin/login" element={<AdminLogin />} />
 
-          {/* MÓDULO ADMINISTRADOR (Rutas Privadas / Panel) */}
+          {/* Rutas del admin (necesitan sesión) */}
           <Route
             path="/admin"
             element={
@@ -62,7 +62,7 @@ export default function App() {
             <Route path="reservas" element={<AdminReservations />} />
           </Route>
 
-          {/* Ruta por defecto (404 redirect) */}
+          {/* Cualquier otra ruta vuelve al inicio */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

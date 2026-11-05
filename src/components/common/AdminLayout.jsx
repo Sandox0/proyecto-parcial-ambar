@@ -20,12 +20,12 @@ export default function AdminLayout() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  // Guardia de sesión simulada en sessionStorage
+  // Revisa si hay sesión iniciada (se guarda en sessionStorage)
   const hasSession =
     typeof window !== 'undefined' &&
     sessionStorage.getItem('ambar_admin_session') === 'authenticated'
 
-  // Efecto secundario de UI: Título del documento
+  // Cambia el título de la pestaña
   useEffect(() => {
     const adminTitles = {
       '/admin/dashboard': 'Ámbar | Panel de Control (Dashboard)',
@@ -67,7 +67,7 @@ export default function AdminLayout() {
 
   return (
     <div className="min-h-screen bg-[#F3F3F3] text-[#101010] font-golos flex flex-col md:flex-row selection:bg-[#6F1D1B] selection:text-[#F3F3F3]">
-      {/* Encabezado Móvil (Bloque Oscuro) */}
+      {/* Encabezado para celular */}
       <header className="md:hidden bg-[#101010] text-[#F3F3F3] border-b border-[#F3F3F3]/15 px-6 py-4 flex items-center justify-between z-30">
         <div className="flex items-center gap-3">
           <span className="w-2 h-2 rounded-full bg-[#6F1D1B]" aria-hidden="true" />
@@ -84,14 +84,14 @@ export default function AdminLayout() {
         </button>
       </header>
 
-      {/* Sidebar Fijo en Bloque Oscuro Monolítico (#101010) */}
+      {/* Menú lateral */}
       <aside
         className={`fixed inset-y-0 left-0 z-40 w-64 bg-[#101010] text-[#F3F3F3] border-r border-[#F3F3F3]/15 flex flex-col justify-between transition-transform duration-300 md:static md:translate-x-0 ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         <div>
-          {/* Logo y Encabezado del Sidebar */}
+          {/* Logo */}
           <div className="p-6 border-b border-[#F3F3F3]/15">
             <Link to="/admin/dashboard" className="flex items-center gap-3">
               <div className="w-9 h-9 border border-[#6F1D1B] bg-[#6F1D1B]/20 flex items-center justify-center text-[#F3F3F3]">
@@ -108,7 +108,7 @@ export default function AdminLayout() {
             </Link>
           </div>
 
-          {/* Estado de sincronización en tiempo real */}
+          {/* Aviso de reservas en vivo */}
           <div className="px-6 py-3.5 border-b border-[#F3F3F3]/10 bg-white/5 flex items-center justify-between text-xs font-mono">
             <span className="text-[#919191] flex items-center gap-2 text-[11px]">
               <CircleDot className="w-3 h-3 text-emerald-400 animate-pulse" />
@@ -119,7 +119,7 @@ export default function AdminLayout() {
             </span>
           </div>
 
-          {/* Menú de Navegación del Administrador */}
+          {/* Enlaces del menú */}
           <nav className="p-4 space-y-1.5 font-mono text-xs">
             {navItems.map((item) => {
               const Icon = item.icon
@@ -151,9 +151,9 @@ export default function AdminLayout() {
           </nav>
         </div>
 
-        {/* Acciones al pie del Sidebar */}
+        {/* Parte de abajo del menú */}
         <div className="p-4 border-t border-[#F3F3F3]/15 space-y-2">
-          {/* Perfil del Operador */}
+          {/* Usuario y cerrar sesión */}
           <div className="p-3 bg-white/5 border border-[#F3F3F3]/10 flex items-center gap-3 mb-2">
             <div className="w-7 h-7 border border-[#F3F3F3]/20 flex items-center justify-center text-[#F3F3F3]">
               <User className="w-3.5 h-3.5 text-[#F3F3F3]" />
@@ -188,7 +188,7 @@ export default function AdminLayout() {
         </div>
       </aside>
 
-      {/* Backdrop Mobile */}
+      {/* Fondo oscuro cuando el menú está abierto en celular */}
       {sidebarOpen && (
         <div
           onClick={() => setSidebarOpen(false)}
@@ -196,7 +196,7 @@ export default function AdminLayout() {
         />
       )}
 
-      {/* Contenido Principal con fondo blanco hueso (#F3F3F3) */}
+      {/* Contenido de la página */}
       <main className="flex-1 bg-[#F3F3F3] text-[#101010] p-6 sm:p-10 lg:p-12 overflow-y-auto">
         <div className="max-w-7xl mx-auto">
           <Outlet />

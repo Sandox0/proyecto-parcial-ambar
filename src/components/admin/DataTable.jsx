@@ -43,9 +43,9 @@ export default function DataTable({
 
   return (
     <div className="bg-white border border-[#101010]/20 overflow-hidden">
-      {/* Barra de Filtros y Búsqueda */}
+      {/* Buscador y filtros */}
       <div className="p-5 sm:p-6 border-b border-[#101010]/15 flex flex-col md:flex-row items-center justify-between gap-4">
-        {/* Input de Búsqueda */}
+        {/* Buscador */}
         <div className="relative w-full md:w-80">
           <Search className="w-4 h-4 text-[#101010]/50 absolute left-3.5 top-1/2 -translate-y-1/2" aria-hidden="true" />
           <input
@@ -58,7 +58,7 @@ export default function DataTable({
           />
         </div>
 
-        {/* Filtros por Estado (Estilo Editorial con bordes nítidos, sin píldoras) */}
+        {/* Botones para filtrar por estado */}
         <div className="flex items-center gap-1 w-full md:w-auto overflow-x-auto pb-1 md:pb-0" role="tablist" aria-label="Filtro de estados">
           {[
             { id: 'all', label: 'Todas' },
@@ -87,7 +87,7 @@ export default function DataTable({
         </div>
       </div>
 
-      {/* Contenedor de la Tabla */}
+      {/* Tabla */}
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
@@ -120,7 +120,7 @@ export default function DataTable({
                   key={item.id}
                   className="hover:bg-[#F3F3F3]/60 transition-colors group"
                 >
-                  {/* ID & Cliente */}
+                  {/* Código y cliente */}
                   <td className="py-4 px-6">
                     <span className="font-mono text-[11px] font-bold text-[#6F1D1B] block">
                       #{item.id}
@@ -133,7 +133,7 @@ export default function DataTable({
                     </span>
                   </td>
 
-                  {/* Fecha & Turno */}
+                  {/* Fecha y turno */}
                   <td className="py-4 px-6 font-mono text-xs">
                     <span className="font-bold text-[#101010] block">{item.date}</span>
                     <span className="text-[#6F1D1B] font-semibold block mt-0.5">
@@ -141,7 +141,7 @@ export default function DataTable({
                     </span>
                   </td>
 
-                  {/* Comensales & Zona */}
+                  {/* Comensales y zona */}
                   <td className="py-4 px-6">
                     <span className="inline-flex items-center gap-1.5 font-mono font-bold text-[#101010]">
                       <Users className="w-3.5 h-3.5 text-[#6F1D1B]" aria-hidden="true" />
@@ -152,7 +152,7 @@ export default function DataTable({
                     </span>
                   </td>
 
-                  {/* Experiencia & Notas */}
+                  {/* Experiencia y notas */}
                   <td className="py-4 px-6 max-w-xs">
                     <span className="font-medium text-[#101010] font-golos block truncate">
                       {item.experience || 'Menú Degustación'}
@@ -166,12 +166,12 @@ export default function DataTable({
                     )}
                   </td>
 
-                  {/* Estado */}
+                  {/* Estado de la reserva */}
                   <td className="py-4 px-6">
                     <StatusBadge status={item.status} />
                   </td>
 
-                  {/* Acciones de Gestión de Estado */}
+                  {/* Botones para confirmar o cancelar */}
                   <td className="py-4 px-6 text-right">
                     <div className="flex items-center justify-end gap-1.5">
                       {item.status !== 'confirmed' && (
@@ -218,7 +218,7 @@ export default function DataTable({
         </table>
       </div>
 
-      {/* Resumen inferior */}
+      {/* Resumen al final */}
       <div className="px-6 py-4 bg-[#F3F3F3] border-t border-[#101010]/15 flex items-center justify-between text-xs font-mono text-[#101010]/70">
         <span>Mostrando {filteredReservations.length} de {reservations.length} reservas registradas</span>
         <span className="text-[#6F1D1B] font-bold uppercase tracking-wider">Ámbar Back-Office System</span>

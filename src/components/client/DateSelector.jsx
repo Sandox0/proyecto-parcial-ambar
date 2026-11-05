@@ -105,7 +105,7 @@ export default function DateSelector({
           )}
         </div>
 
-        {/* Estado operativo (no como error, sino como disponibilidad real) */}
+        {/* Texto de disponibilidad */}
         <div className="mt-2 text-xs font-golos">
           {isSoldOut ? (
             <div className="space-y-0.5">
@@ -142,7 +142,7 @@ export default function DateSelector({
 
   return (
     <div className="space-y-12 font-golos text-[#101010]">
-      {/* 1. SELECCIÓN DE FECHA */}
+      {/* Paso 1: elegir la fecha */}
       <section className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-[#101010]/15">
           <div>
@@ -154,7 +154,7 @@ export default function DateSelector({
             </h2>
           </div>
 
-          {/* Selector de fecha nativo de respaldo */}
+          {/* Selector de fecha del navegador */}
           <div className="flex items-center gap-2 font-mono text-xs text-[#101010]/80">
             <label htmlFor="custom-date" className="font-medium">
               Fecha específica:
@@ -170,7 +170,7 @@ export default function DateSelector({
           </div>
         </div>
 
-        {/* Franja editorial de días (cuadrícula austera y técnica) */}
+        {/* Botones de los días */}
         <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-2">
           {upcomingDays.map((item) => {
             const isSelected = selectedDate === item.isoDate
@@ -210,7 +210,7 @@ export default function DateSelector({
         </div>
       </section>
 
-      {/* 2. SELECCIÓN DE TURNO CON ESTADO CLARO */}
+      {/* Paso 2: elegir el turno */}
       <section className="space-y-8">
         <div className="pb-4 border-b border-[#101010]/15">
           <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#6F1D1B] font-bold block mb-1">
@@ -224,7 +224,7 @@ export default function DateSelector({
           </p>
         </div>
 
-        {/* Turno Almuerzo */}
+        {/* Turno almuerzo */}
         <div className="space-y-4">
           <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[#101010] pb-2 border-b border-[#101010]/10">
             <Sun className="w-4 h-4 text-[#6F1D1B]" aria-hidden="true" />
@@ -235,7 +235,7 @@ export default function DateSelector({
           </div>
         </div>
 
-        {/* Turno Cena */}
+        {/* Turno cena */}
         <div className="space-y-4 pt-4">
           <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[#101010] pb-2 border-b border-[#101010]/10">
             <Moon className="w-4 h-4 text-[#6F1D1B]" aria-hidden="true" />
@@ -247,7 +247,7 @@ export default function DateSelector({
         </div>
       </section>
 
-      {/* Estado del turno seleccionado */}
+      {/* Resumen del turno elegido */}
       {selectedDate && selectedTime ? (
         <div className="p-5 bg-[#101010] text-[#F3F3F3] border border-[#F3F3F3]/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">

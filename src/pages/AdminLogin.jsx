@@ -15,7 +15,7 @@ export default function AdminLogin() {
   useEffect(() => {
     document.title = 'Ámbar | Acceso Administrativo'
 
-    // Detectar preferencia del usuario por reducción de movimiento
+    // Revisa si el usuario prefiere menos animaciones
     if (typeof window !== 'undefined' && window.matchMedia) {
       const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
       setPrefersReducedMotion(mediaQuery.matches)
@@ -26,14 +26,14 @@ export default function AdminLogin() {
     }
   }, [])
 
-  // Forzar autoplay real con muted=true a nivel de propiedad DOM para iOS y Android
+  // Reproduce el video sin sonido (necesario en celulares)
   useEffect(() => {
     if (videoRef.current && !prefersReducedMotion && !videoError) {
       videoRef.current.muted = true
       const playPromise = videoRef.current.play()
       if (playPromise !== undefined) {
         playPromise.catch(() => {
-          // Autoplay silenciado restringido por el dispositivo; mantiene el fondo oscuro sólido
+          // Si el celular no deja reproducirlo, queda el fondo oscuro
         })
       }
     }
@@ -46,7 +46,7 @@ export default function AdminLogin() {
     const user = credentials.username.trim()
     const pass = credentials.password.trim()
 
-    // Validación de credenciales demo
+    // Revisa usuario y contraseña (de prueba)
     const isValidUser = user === 'admin' || user === 'admin@ambar.pe'
     const isValidPass = pass === 'admin123'
 
@@ -62,7 +62,7 @@ export default function AdminLogin() {
 
   return (
     <div className="relative min-h-[100dvh] bg-[#101010] text-[#F3F3F3] flex items-center justify-center p-6 font-golos overflow-hidden">
-      {/* Video de fondo decorativo cinematográfico (visible en móvil y desktop) */}
+      {/* Video de fondo */}
       {!prefersReducedMotion && !videoError && (
         <div
           className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden"
@@ -84,14 +84,14 @@ export default function AdminLogin() {
               type="video/mp4"
             />
           </video>
-          {/* Velo oscuro para contraste accesible >= 4.5:1 */}
+          {/* Capa oscura para que se lea el texto */}
           <div className="absolute inset-0 bg-black/70 pointer-events-none" aria-hidden="true" />
         </div>
       )}
 
-      {/* Formulario y panel de control por encima del video con relative z-10 */}
+      {/* Formulario */}
       <div className="relative z-10 w-full max-w-md bg-[#101010]/95 sm:bg-[#101010]/90 border border-[#F3F3F3]/20 p-8 sm:p-10 space-y-6 shadow-2xl">
-        {/* Cabecera Editorial */}
+        {/* Título */}
         <div className="border-b border-[#F3F3F3]/15 pb-6 text-center space-y-2">
           <div className="w-10 h-10 mx-auto border border-[#6F1D1B] bg-[#6F1D1B]/20 flex items-center justify-center text-[#F3F3F3]">
             <Lock className="w-4 h-4 text-[#F3F3F3]" aria-hidden="true" />
@@ -104,7 +104,7 @@ export default function AdminLogin() {
           </span>
         </div>
 
-        {/* Aviso visible de acceso simulado */}
+        {/* Aviso: el acceso es simulado */}
         <div className="p-4 border border-[#F3F3F3]/20 bg-white/5 space-y-1 text-xs font-mono">
           <p className="text-[#F3F3F3] font-semibold">
             Acceso simulado para prototipo, no es autenticación real.
@@ -115,7 +115,7 @@ export default function AdminLogin() {
           </p>
         </div>
 
-        {/* Error accesible con role="alert" */}
+        {/* Mensaje de error */}
         {errorMessage && (
           <div
             role="alert"

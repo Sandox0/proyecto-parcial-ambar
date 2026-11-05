@@ -53,7 +53,7 @@ export default function AdminCalendar() {
     }
   }
 
-  // Navegación de mes
+  // Cambiar de mes
   const handlePrevMonth = () => {
     if (currentMonth === 0) {
       setCurrentMonth(11)
@@ -83,7 +83,7 @@ export default function AdminCalendar() {
 
   return (
     <div className="space-y-8">
-      {/* Encabezado del Calendario */}
+      {/* Título */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-[#101010]/15">
         <div>
           <div className="inline-flex items-center gap-2 px-2.5 py-1 border border-[#101010]/20 bg-white text-[#6F1D1B] text-[10px] font-mono font-bold uppercase tracking-wider mb-2">
@@ -98,7 +98,7 @@ export default function AdminCalendar() {
           </p>
         </div>
 
-        {/* Controles de Navegación de Mes */}
+        {/* Botones para cambiar de mes */}
         <div className="flex items-center border border-[#101010]/20 bg-white">
           <button
             type="button"
@@ -126,9 +126,9 @@ export default function AdminCalendar() {
         </div>
       </div>
 
-      {/* Disposición Principal: Grilla de Calendario a la izquierda, Detalle del Día a la derecha */}
+      {/* Calendario a la izquierda y detalle del día a la derecha */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Columna Izquierda: Grilla del Mes */}
+        {/* Calendario del mes */}
         <div className="lg:col-span-2 space-y-4">
           <CalendarGrid
             currentYear={currentYear}
@@ -139,7 +139,7 @@ export default function AdminCalendar() {
           />
         </div>
 
-        {/* Columna Derecha: Detalle de Reservas del Día Seleccionado */}
+        {/* Detalle del día elegido */}
         <div className="bg-white border border-[#101010]/20 p-6 sm:p-7 flex flex-col h-fit">
           <div className="flex items-center justify-between pb-4 border-b border-[#101010]/15 mb-4">
             <div>
@@ -155,7 +155,7 @@ export default function AdminCalendar() {
             </span>
           </div>
 
-          {/* Lista de Reservas del Día */}
+          {/* Reservas del día */}
           <div className="space-y-4 overflow-y-auto max-h-[600px] pr-1">
             {selectedDayReservations.length === 0 ? (
               <div className="text-center py-12 text-[#101010]/40 space-y-2 border border-dashed border-[#101010]/15 p-6">
@@ -167,7 +167,7 @@ export default function AdminCalendar() {
               </div>
             ) : (
               <>
-                {/* Reservas Activas (Ocupan mesa) */}
+                {/* Reservas activas (ocupan mesa) */}
                 {activeDayReservations.length === 0 && cancelledDayReservations.length > 0 && (
                   <p className="text-xs font-mono text-[#101010]/60 py-2 border-b border-[#101010]/10">
                     No hay mesas activas ocupadas para este día.
@@ -222,7 +222,7 @@ export default function AdminCalendar() {
                       )}
                     </div>
 
-                    {/* Acciones de estado del día */}
+                    {/* Botón para cancelar */}
                     <div className="pt-2 border-t border-[#101010]/15 flex items-center justify-end gap-2">
                       {item.status !== 'confirmed' && (
                         <button
@@ -246,7 +246,7 @@ export default function AdminCalendar() {
                   </div>
                 ))}
 
-                {/* Reservas Canceladas: se muestran aparte con su StatusBadge y el texto 'Cancelada (no ocupa mesa)' */}
+                {/* Reservas canceladas (no ocupan mesa) */}
                 {cancelledDayReservations.length > 0 && (
                   <div className="pt-4 border-t border-[#101010]/20 space-y-3">
                     <div className="flex items-center justify-between">
@@ -290,7 +290,7 @@ export default function AdminCalendar() {
                           <span>{item.guests} comensales liberados</span>
                         </div>
 
-                        {/* Reactivación de reserva */}
+                        {/* Botón para reactivar */}
                         <div className="pt-2 border-t border-[#101010]/15 flex flex-wrap items-center justify-end gap-2">
                           {reactivationErrors[item.id] && (
                             <span
