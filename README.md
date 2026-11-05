@@ -3,8 +3,8 @@
 Aplicación web de reservas de mesas para un restaurante, hecha con React.
 
 - **Curso:** Desarrollo de Interfaces 2 — IDAT (ciclo 3)
-- **Integrantes:** Felip Gamboa, Ronny Herrera, Paola Cabrera
-- **Prototipo en Figma:** https://www.figma.com/design/Y7S8eOYfa9fWAogjwI4bPl/ambar-restaurante?node-id=0-1&t=7CYheRrrM5UNukrt-1
+- **Integrantes:** Felip Gamboa, Ronny Herrera, Paola Carhuas Cabrera
+- **Prototipo en Figma:** https://www.figma.com/design/Y7S8eOYfa9fWAogjwI4bPl/ambar-restaurante?node-id=126-3473 (el archivo tiene dos páginas: DISEÑO WEB con el prototipo y WIREFRAME con la estructura de las pantallas)
 - **Repositorio:** https://github.com/Sandox0/proyecto-parcial-ambar
 - **Versión desplegada:** https://ambar-peru.netlify.app
 
@@ -123,19 +123,23 @@ src/
 
 ## 6. Pruebas de usabilidad
 
-**Participantes:** [PENDIENTE]
+**Participantes:** Felip Gamboa, como usuario simulado, sin ayuda y sin guía.
 
-| # | Tarea | ¿Completó? | Dónde dudó |
-|---|-------|-----------|------------|
-| 1 | Reservar una mesa y pagar la garantía | [PENDIENTE] | [PENDIENTE] |
-| 2 | Intentar reservar el turno agotado y entender por qué no se puede | [PENDIENTE] | [PENDIENTE] |
-| 3 | Confirmar una reserva pendiente desde el panel admin | [PENDIENTE] | [PENDIENTE] |
-| 4 | Cancelar una reserva y ver que libera la mesa | [PENDIENTE] | [PENDIENTE] |
+| # | Tarea | ¿Completó? | Observación |
+|---|-------|-----------|-------------|
+| 1 | Reservar una mesa y pagar la garantía | Sí | Llegó al voucher sin errores. |
+| 2 | Intentar reservar el turno agotado y entender por qué no se puede | Sí | Vio «Agotado (4/4 mesas)» y «Próximo libre: 20:00 hrs». |
+| 3 | Confirmar una reserva pendiente desde el panel admin | Sí | Aprobó una reserva y pasó a «Confirmada». |
+| 4 | Cancelar una reserva y ver que libera la mesa | Sí | El turno de las 19:30 pasó de «Agotado» a «¡Última mesa disponible!». |
 
 **Problemas detectados y soluciones:**
 
 | Problema | Solución implementada |
 |----------|-----------------------|
-| [PENDIENTE] | [PENDIENTE] |
+| Se podía llegar al pago sin cupo suficiente en el turno | Ahora se revisa el cupo antes de pasar al pago |
+| El campo de teléfono aceptaba letras | Ahora exige al menos 7 números |
+| Al imprimir el voucher salían la cabecera y el pie de la página | Se ocultan al imprimir |
 
-**Conclusión:** [PENDIENTE]
+**Pendientes como mejora:** pedir confirmación antes de cancelar una reserva y ajustar el ancho de la tabla del admin en pantallas de 1366 px.
+
+**Conclusión:** la aplicación se pudo usar de principio a fin sin errores, y las pruebas sirvieron para corregir tres problemas reales.
