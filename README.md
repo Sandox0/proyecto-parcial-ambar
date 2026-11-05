@@ -3,11 +3,11 @@
 Aplicación web de reservas de mesas para un restaurante, hecha con React.
 
 - **Curso:** Desarrollo de Interfaces 2 — IDAT (ciclo 3)
-- **Integrantes:** Felip Gamboa, Ronny Herrera, Paola Carhuas Cabrera
+- **Integrantes:** Felip Moisés Gamboa Vivenes, Ronny Humberto Herrera Sanchez, Andrea Paola Carhuas Cabrera
 - **Prototipo interactivo en Figma:** https://www.figma.com/proto/Y7S8eOYfa9fWAogjwI4bPl/ambar-restaurante?node-id=126-20&t=E6X4bBEtBcEy3d6D-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=140%3A1203
 - **Wireframes y diseño en Figma:** https://www.figma.com/design/Y7S8eOYfa9fWAogjwI4bPl/ambar-restaurante?node-id=126-3473
 - **Repositorio:** https://github.com/Sandox0/proyecto-parcial-ambar
-- **Versión desplegada:** https://ambar-peru.netlify.app
+- **Versión desplegada:** https://ambar-pe.netlify.app
 
 ---
 
