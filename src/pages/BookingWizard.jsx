@@ -80,6 +80,19 @@ export default function BookingWizard() {
 
   // Paso 2 -> Paso 3: la ficha ya fue validada por ReservationForm
   const handleGoToPayment = () => {
+    // Antes de pasar al pago, revisamos que el turno aún tenga cupo para estos comensales.
+    // Así el cliente no paga la garantía y recién después se entera de que no hay lugar.
+    const slot = getAvailability(reservationState.date, reservationState.time)
+    const guests = Number(reservationState.guests || 2)
+
+    if (slot.isFull || slot.remainingSeats < guests) {
+      setSubmissionError(
+        `En este turno solo quedan ${slot.remainingSeats} cupos. Reduce la cantidad de comensales o vuelve al paso 1 y elige otro horario.`
+      )
+      window.scrollTo({ top: 120, behavior: 'smooth' })
+      return
+    }
+
     setSubmissionError('')
     setCurrentStep(3)
     window.scrollTo({ top: 120, behavior: 'smooth' })
