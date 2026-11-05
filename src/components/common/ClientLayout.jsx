@@ -32,7 +32,7 @@ export default function ClientLayout() {
   return (
     <div className="min-h-screen flex flex-col bg-[#F3F3F3] text-[#101010] selection:bg-[#6F1D1B] selection:text-[#F3F3F3]">
       {/* Header sólido negro #101010 con z-50 y pointer-events-auto para respuesta inmediata en un solo clic */}
-      <header className="sticky top-0 z-50 bg-[#101010] text-[#F3F3F3] border-b border-[#F3F3F3]/15 relative pointer-events-auto">
+      <header className="print:hidden sticky top-0 z-50 bg-[#101010] text-[#F3F3F3] border-b border-[#F3F3F3]/15 relative pointer-events-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between relative z-50">
           {/* Logo y concepto editorial: ÁMBAR en Old Standard TT, sin círculo decorativo */}
           <Link
@@ -142,7 +142,7 @@ export default function ClientLayout() {
 
       {/* Footer Editorial para vistas secundarias */}
       {location.pathname !== '/' && (
-        <footer className="bg-[#101010] text-[#F3F3F3] border-t border-[#F3F3F3]/15 pt-16 pb-12 px-6 sm:px-12 lg:px-20 mt-auto">
+        <footer className="print:hidden bg-[#101010] text-[#F3F3F3] border-t border-[#F3F3F3]/15 pt-16 pb-12 px-6 sm:px-12 lg:px-20 mt-auto">
           <div className="max-w-7xl mx-auto space-y-14">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
               {/* Columna 1: Marca & Concepto */}

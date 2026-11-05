@@ -65,7 +65,11 @@ export default function ReservationForm({
       : !/\S+@\S+\.\S+/.test(formData.email)
       ? 'Ingresa un correo electrónico con formato válido.'
       : '',
-    phone: !formData.phone?.trim() ? 'El teléfono de contacto es requerido.' : '',
+    phone: !formData.phone?.trim()
+      ? 'El teléfono de contacto es requerido.'
+      : formData.phone.replace(/\D/g, '').length < 7
+      ? 'Ingresa un teléfono válido (mínimo 7 números).'
+      : '',
     guests: !formData.guests || Number(formData.guests) < 1 ? 'Selecciona al menos 1 comensal.' : '',
   }
 
