@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { Menu, X, ShieldCheck, CalendarCheck } from 'lucide-react'
 
-// Estructura de las páginas del cliente: cabecera con menú, contenido y pie de página.
+// cabecera y pie de página del cliente
 export default function ClientLayout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const location = useLocation()
 
-  // Cambia el título de la pestaña
   useEffect(() => {
     const titles = {
       '/': 'Ámbar — Cocina Experimental | Alta Gastronomía',
@@ -17,7 +16,7 @@ export default function ClientLayout() {
     document.title = titles[location.pathname] || 'Ámbar — Cocina Experimental'
   }, [location.pathname])
 
-  // Cierra el menú del celular al cambiar de página
+  // cierra el menú al cambiar de página
   useEffect(() => {
     setMobileMenuOpen(false)
   }, [location.pathname])
@@ -31,10 +30,9 @@ export default function ClientLayout() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F3F3F3] text-[#101010] selection:bg-[#6F1D1B] selection:text-[#F3F3F3]">
-      {/* Cabecera */}
+      {/* cabecera */}
       <header className="print:hidden sticky top-0 z-50 bg-[#101010] text-[#F3F3F3] border-b border-[#F3F3F3]/15 relative pointer-events-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between relative z-50">
-          {/* Logo */}
           <Link
             to="/"
             className="group flex flex-col focus:outline-none focus:ring-2 focus:ring-[#6F1D1B] p-1 cursor-pointer"
@@ -48,7 +46,6 @@ export default function ClientLayout() {
             </span>
           </Link>
 
-          {/* Enlaces para computadora */}
           <nav className="hidden md:flex items-center gap-8">
             <NavLink to="/" end className={navLinkClasses}>
               Inicio
@@ -58,7 +55,6 @@ export default function ClientLayout() {
             </NavLink>
           </nav>
 
-          {/* Botones de reservar y staff */}
           <div className="hidden md:flex items-center gap-4">
             <Link
               to="/reservar"
@@ -77,7 +73,6 @@ export default function ClientLayout() {
             </Link>
           </div>
 
-          {/* Botón del menú para celular */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -89,7 +84,7 @@ export default function ClientLayout() {
           </button>
         </div>
 
-        {/* Menú desplegable para celular */}
+        {/* menú del celular */}
         {mobileMenuOpen && (
           <div className="md:hidden bg-[#101010] border-t border-[#F3F3F3]/15 px-6 pt-4 pb-8 space-y-4 relative z-50">
             <NavLink
@@ -135,17 +130,15 @@ export default function ClientLayout() {
         )}
       </header>
 
-      {/* Contenido de la página */}
       <main className="flex-1">
         <Outlet />
       </main>
 
-      {/* Pie de página */}
+      {/* pie de página */}
       {location.pathname !== '/' && (
         <footer className="print:hidden bg-[#101010] text-[#F3F3F3] border-t border-[#F3F3F3]/15 pt-16 pb-12 px-6 sm:px-12 lg:px-20 mt-auto">
           <div className="max-w-7xl mx-auto space-y-14">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-              {/* Columna 1: marca */}
               <div className="space-y-4">
                 <span className="font-serif-classic text-2xl uppercase tracking-[0.2em] text-[#F3F3F3] block">
                   ÁMBAR
@@ -159,7 +152,6 @@ export default function ClientLayout() {
                 </div>
               </div>
 
-              {/* Columna 2: enlaces */}
               <div className="space-y-4">
                 <h3 className="text-xs uppercase font-mono tracking-[0.2em] text-[#F3F3F3] font-semibold">
                   Navegación
@@ -183,7 +175,6 @@ export default function ClientLayout() {
                 </ul>
               </div>
 
-              {/* Columna 3: horarios */}
               <div className="space-y-4">
                 <h3 className="text-xs uppercase font-mono tracking-[0.2em] text-[#F3F3F3] font-semibold">
                   Horarios de Servicio
@@ -203,7 +194,6 @@ export default function ClientLayout() {
                 </div>
               </div>
 
-              {/* Columna 4: contacto */}
               <div className="space-y-4">
                 <h3 className="text-xs uppercase font-mono tracking-[0.2em] text-[#F3F3F3] font-semibold">
                   Contacto Directo
@@ -226,14 +216,12 @@ export default function ClientLayout() {
               </div>
             </div>
 
-            {/* Palabra ÁMBAR grande */}
             <div className="pt-10 border-t border-[#F3F3F3]/10 text-center select-none pointer-events-none opacity-15 overflow-hidden">
               <span className="font-serif-classic text-[16vw] sm:text-[14vw] leading-none uppercase text-[#F3F3F3] tracking-tighter block whitespace-nowrap">
                 ÁMBAR
               </span>
             </div>
 
-            {/* Copyright */}
             <div className="pt-4 border-t border-[#F3F3F3]/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#919191]">
               <p>© {new Date().getFullYear()} Ámbar Restaurante. Todos los derechos reservados.</p>
               <div className="flex items-center gap-6">

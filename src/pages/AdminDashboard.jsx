@@ -15,16 +15,16 @@ import { useReservationContext } from '../context/ReservationContext'
 import StatCard from '../components/admin/StatCard'
 import StatusBadge from '../components/common/StatusBadge'
 
-// Panel principal del admin: resumen del día, estadísticas y reservas prioritarias.
+// panel principal del admin
 export default function AdminDashboard() {
   const { reservations, stats, isLoading, updateReservationStatus } = useReservationContext()
 
-  // Reservas de hoy (sin contar las canceladas, para que el número baje al cancelar)
+  // reservas de hoy sin las canceladas
   const prototypeDayReservations = reservations.filter(
     (r) => r.date === PROTOTYPE_DATE && r.status !== 'cancelled'
   )
 
-  // Promedio de comensales por reserva activa
+  // promedio de comensales
   const activeReservations = reservations.filter((r) => r.status !== 'cancelled')
   let averageGuests = '0'
   if (activeReservations.length > 0) {
@@ -32,8 +32,7 @@ export default function AdminDashboard() {
     averageGuests = (totalGuests / activeReservations.length).toFixed(1).replace('.', ',')
   }
 
-  // Las 5 reservas más urgentes: primero pendientes, luego confirmadas, luego canceladas.
-  // Si tienen el mismo estado, se ordenan por fecha y hora.
+  // las 5 reservas más urgentes (pendientes primero)
   const statusPriority = { pending: 1, confirmed: 2, cancelled: 3 }
 
   const priorityReservations = [...reservations]
@@ -47,7 +46,6 @@ export default function AdminDashboard() {
 
   return (
     <div className="space-y-10 font-golos text-[#101010]">
-      {/* Título */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 pb-6 border-b border-[#101010]/20">
         <div>
           <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#6F1D1B] font-bold block mb-2">
@@ -61,7 +59,6 @@ export default function AdminDashboard() {
           </p>
         </div>
 
-        {/* Botones de acceso rápido */}
         <div className="flex items-center gap-3">
           <Link
             to="/admin/calendario"
@@ -80,7 +77,7 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {/* Las 4 tarjetas de números */}
+      {/* tarjetas */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
           title="Reservas de hoy"
@@ -119,9 +116,7 @@ export default function AdminDashboard() {
         />
       </div>
 
-      {/* Sección Inferior: Reservas Prioritarias y Reglas de Exclusividad */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Lista de reservas prioritarias */}
         <div className="lg:col-span-8 bg-white border border-[#101010]/20 p-6 sm:p-8 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-[#101010]/15">
             <div>
@@ -190,7 +185,6 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Panel de reglas de capacidad */}
         <div className="lg:col-span-4 space-y-6">
           <div className="bg-[#101010] text-[#F3F3F3] p-6 sm:p-8 border border-[#F3F3F3]/15 space-y-6">
             <div className="border-b border-[#F3F3F3]/15 pb-4">
@@ -222,7 +216,6 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          {/* Enlace a la página del cliente */}
           <div className="bg-white border border-[#101010]/20 p-5 flex items-center justify-between">
             <div>
               <h3 className="font-serif-classic font-bold text-sm text-[#101010]">

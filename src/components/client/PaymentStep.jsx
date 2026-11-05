@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { CreditCard, Smartphone, ShieldCheck, ArrowLeft, AlertCircle, Lock } from 'lucide-react'
 
-// Paso 3 de la reserva: pago de garantía SIMULADO (S/. 50 por comensal).
-// No se guarda ningún dato real de tarjeta: solo el método y los últimos 4 dígitos.
+// paso 3: pago simulado, no se guardan datos reales
 export const DEPOSIT_PER_GUEST = 50
 
 const onlyDigits = (value) => value.replace(/\D/g, '')
@@ -40,7 +39,7 @@ export default function PaymentStep({
 }) {
   const total = Number(guests || 1) * DEPOSIT_PER_GUEST
 
-  const [method, setMethod] = useState('card') // 'card' | 'yape'
+  const [method, setMethod] = useState('card')
   const [card, setCard] = useState({ holder: '', number: '', expiry: '', cvv: '' })
   const [yapeCode, setYapeCode] = useState('')
   const [errors, setErrors] = useState({})
@@ -103,7 +102,6 @@ export default function PaymentStep({
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        {/* Datos de pago */}
         <div className="lg:col-span-2 space-y-8">
           <div>
             <span className="text-xs uppercase font-mono tracking-[0.25em] text-[#6F1D1B] font-bold">
@@ -285,7 +283,6 @@ export default function PaymentStep({
           </div>
         </div>
 
-        {/* Resumen */}
         <aside className="bg-[#101010] text-[#F3F3F3] p-6 space-y-4 h-fit" aria-label="Resumen del pago">
           <span className="text-[11px] uppercase font-mono tracking-[0.2em] text-[#919191]">Resumen</span>
           <dl className="space-y-3 text-sm font-mono">

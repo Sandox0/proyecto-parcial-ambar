@@ -1,5 +1,5 @@
-// Datos de ejemplo del restaurante "Ámbar".
-// Las fechas se calculan a partir de HOY para que el calendario nunca muestre días pasados.
+// reservas de ejemplo
+// las fechas salen de hoy
 export const toISODate = (d) => {
   const y = d.getFullYear()
   const m = String(d.getMonth() + 1).padStart(2, '0')
@@ -143,10 +143,10 @@ export const INITIAL_RESERVATIONS = [
   },
 ]
 
-// Constantes de configuración de capacidad del restaurante
+// límites del restaurante
 export const RESTAURANT_CONFIG = {
-  maxTablesPerSlot: 4,     // Límite estricto: 4 mesas simultáneas por turno
-  maxGuestsPerSlot: 16,    // Máximo 16 comensales por turno
+  maxTablesPerSlot: 4, // 4 mesas por turno
+  maxGuestsPerSlot: 16, // 16 personas por turno
   availableTimeSlots: [
     '13:00',
     '13:30',

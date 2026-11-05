@@ -1,25 +1,23 @@
 import React from 'react'
 
-// Calendario mensual del admin. Cada día muestra cuántas reservas activas tiene
-// y se pinta más oscuro mientras más reservas haya.
+// calendario del mes (más reservas = más oscuro)
 export default function CalendarGrid({
   currentYear,
-  currentMonth, // 0 = Enero, 11 = Diciembre
+  currentMonth, // 0 = enero
   reservations = [],
   selectedDate,
   onSelectDate,
 }) {
   const weekDays = ['LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB', 'DOM']
 
-  // Datos del mes: cuántos días tiene y en qué día de la semana empieza
+  // cuántos días tiene el mes y en qué día empieza
   const firstDay = new Date(currentYear, currentMonth, 1)
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate()
 
-  // getDay() devuelve 0 = domingo, pero nuestro calendario empieza en lunes
+  // getDay() empieza en domingo y acá empieza en lunes
   let startDayOffset = firstDay.getDay() - 1
   if (startDayOffset === -1) startDayOffset = 6
 
-  // Armamos la lista de celdas: primero los espacios vacíos y luego los días
   const calendarCells = []
 
   for (let i = 0; i < startDayOffset; i++) {
@@ -31,7 +29,6 @@ export default function CalendarGrid({
     const dayText = String(day).padStart(2, '0')
     const dateString = `${currentYear}-${month}-${dayText}`
 
-    // Reservas de este día (con y sin canceladas)
     const dayReservations = reservations.filter((r) => r.date === dateString)
     const active = dayReservations.filter((r) => r.status !== 'cancelled')
 
@@ -44,12 +41,11 @@ export default function CalendarGrid({
       count: active.length,
       confirmedCount: dayReservations.filter((r) => r.status === 'confirmed').length,
       pendingCount: dayReservations.filter((r) => r.status === 'pending').length,
-      // Densidad de 0 a 1: con 5 reservas activas el día queda al máximo
+      // con 5 reservas el color es el máximo
       density: Math.min(1, active.length / 5),
     })
   }
 
-  // Color de cada celda según la densidad (burdeos #6F1D1B, más fuerte = más reservas)
   const getDensityStyle = (density, isSelected) => {
     if (isSelected) {
       return {
@@ -79,7 +75,6 @@ export default function CalendarGrid({
 
   return (
     <div className="bg-white border border-[#101010]/20 p-6 sm:p-7">
-      {/* Días de la semana */}
       <div className="grid grid-cols-7 gap-2 mb-3 text-center border-b border-[#101010]/15 pb-2">
         {weekDays.map((wd) => (
           <div
@@ -91,7 +86,7 @@ export default function CalendarGrid({
         ))}
       </div>
 
-      {/* Días del mes */}
+      {/* días del mes */}
       <div className="grid grid-cols-7 gap-2">
         {calendarCells.map((cell) => {
           if (cell.isEmpty) {
@@ -142,7 +137,6 @@ export default function CalendarGrid({
                 )}
               </div>
 
-              {/* Puntos de confirmadas y pendientes */}
               {cell.count > 0 ? (
                 <div className="space-y-1">
                   <div className="flex items-center gap-1">
@@ -177,7 +171,6 @@ export default function CalendarGrid({
         })}
       </div>
 
-      {/* Leyenda de colores */}
       <div className="mt-6 pt-4 border-t border-[#101010]/15 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-[#101010]/80">
         <div className="flex items-center gap-2">
           <span className="uppercase text-[11px] font-bold">Densidad:</span>

@@ -7,15 +7,15 @@ import ReservationForm from '../components/client/ReservationForm'
 import PaymentStep from '../components/client/PaymentStep'
 import { PROTOTYPE_DATE } from '../data/mockReservations'
 
-// Asistente de reserva de 3 pasos: 1) fecha y turno, 2) ficha técnica, 3) pago de garantía.
+// asistente de reserva (3 pasos)
 export default function BookingWizard() {
   const navigate = useNavigate()
   const { getAvailability, addReservation, isLoading } = useReservationContext()
 
-  // Paso actual: 1 = fecha/hora, 2 = ficha técnica, 3 = pago
+  // paso actual
   const [currentStep, setCurrentStep] = useState(1)
 
-  // Todos los datos de la reserva que se está llenando
+  // datos de la reserva
   const [reservationState, setReservationState] = useState({
     date: PROTOTYPE_DATE,
     time: '20:00',
@@ -33,7 +33,7 @@ export default function BookingWizard() {
   const [step1Error, setStep1Error] = useState('')
   const [collisionWarning, setCollisionWarning] = useState('')
 
-  // useEffect: cada vez que cambia fecha, hora o comensales, revisa si el turno sigue disponible
+  // useEffect: revisa si el turno sigue disponible
   useEffect(() => {
     if (reservationState.date && reservationState.time) {
       const slotAvail = getAvailability(reservationState.date, reservationState.time)
@@ -51,7 +51,7 @@ export default function BookingWizard() {
     }
   }, [reservationState.date, reservationState.time, reservationState.guests])
 
-  // Actualiza un campo de la reserva (sirve para todos los inputs)
+  // cambia un campo del formulario
   const handleFieldChange = (field, value) => {
     setReservationState((prev) => ({
       ...prev,
@@ -61,7 +61,6 @@ export default function BookingWizard() {
     if (step1Error) setStep1Error('')
   }
 
-  // Pasar al paso 2 si hay fecha y hora
   const handleProceedToStep2 = () => {
     if (!reservationState.date || !reservationState.time) {
       setStep1Error('Por favor selecciona una fecha y una hora antes de continuar.')
@@ -72,16 +71,13 @@ export default function BookingWizard() {
     window.scrollTo({ top: 120, behavior: 'smooth' })
   }
 
-  // Volver al paso 1
   const handleBackToStep1 = () => {
     setCurrentStep(1)
     window.scrollTo({ top: 120, behavior: 'smooth' })
   }
 
-  // Pasar del paso 2 al paso 3 (la ficha ya está validada)
   const handleGoToPayment = () => {
-    // Antes de pasar al pago, revisamos que el turno aún tenga cupo para estos comensales.
-    // Así el cliente no paga la garantía y recién después se entera de que no hay lugar.
+    // revisa que haya cupo antes de pagar
     const slot = getAvailability(reservationState.date, reservationState.time)
     const guests = Number(reservationState.guests || 2)
 
@@ -98,14 +94,13 @@ export default function BookingWizard() {
     window.scrollTo({ top: 120, behavior: 'smooth' })
   }
 
-  // Volver del pago a la ficha
   const handleBackToStep2 = () => {
     setSubmissionError('')
     setCurrentStep(2)
     window.scrollTo({ top: 120, behavior: 'smooth' })
   }
 
-  // Al pagar: guardamos la reserva y vamos al voucher
+  // guarda la reserva y va al voucher
   const handleFinalSubmit = (payment) => {
     setIsSubmitting(true)
     setSubmissionError('')
@@ -137,14 +132,13 @@ export default function BookingWizard() {
     }, 600)
   }
 
-  // ¿El turno elegido todavía tiene mesa? (si no, se bloquea el botón de continuar)
+  // si el turno está lleno, se bloquea el botón
   const slot = getAvailability(reservationState.date, reservationState.time)
   const turnoDisponible = slot.isAvailable && !slot.isFull
 
   return (
     <div className="w-full bg-[#F3F3F3] text-[#101010] font-golos py-12 px-6 sm:px-12 lg:px-20 min-h-screen">
       <div className="max-w-6xl mx-auto space-y-12">
-        {/* Título */}
         <header className="pb-8 border-b border-[#101010]/20 space-y-4">
           <div className="flex items-center gap-3">
             <span className="w-2 h-2 rounded-full bg-[#6F1D1B]" aria-hidden="true" />
@@ -163,7 +157,7 @@ export default function BookingWizard() {
               </p>
             </div>
 
-            {/* Barra de pasos */}
+            {/* barra de pasos */}
             <nav aria-label="Progreso de la reserva" className="flex items-center gap-4 text-xs font-mono">
               <button
                 type="button"
@@ -221,7 +215,7 @@ export default function BookingWizard() {
           </div>
         </header>
 
-        {/* Aviso de turno lleno o con poco cupo */}
+        {/* aviso de turno lleno */}
         {collisionWarning && (
           <div
             role="alert"
@@ -233,7 +227,6 @@ export default function BookingWizard() {
           </div>
         )}
 
-        {/* Error del paso 1 */}
         {step1Error && (
           <div
             role="alert"
@@ -244,7 +237,7 @@ export default function BookingWizard() {
           </div>
         )}
 
-        {/* Contenido de cada paso */}
+        {/* contenido de cada paso */}
         <main className="space-y-8">
           {currentStep === 1 && (
             <div className="space-y-12">
@@ -301,7 +294,6 @@ export default function BookingWizard() {
           )}
         </main>
 
-        {/* Condiciones */}
         <footer className="pt-8 border-t border-[#101010]/15 flex flex-wrap items-center justify-between gap-4 text-[11px] font-mono text-[#101010]/70">
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-[#6F1D1B]" aria-hidden="true" />

@@ -1,8 +1,7 @@
 import { createContext, useContext } from 'react'
 import { useReservations } from '../hooks/useReservations'
 
-// El contexto sirve para que cliente y admin compartan las mismas reservas
-// sin tener que pasarlas de componente en componente (props).
+// para compartir las reservas entre cliente y admin
 const ReservationContext = createContext(null)
 
 export function ReservationProvider({ children }) {
@@ -15,7 +14,6 @@ export function ReservationProvider({ children }) {
   )
 }
 
-// Atajo para usar el contexto en cualquier componente
 export function useReservationContext() {
   return useContext(ReservationContext)
 }

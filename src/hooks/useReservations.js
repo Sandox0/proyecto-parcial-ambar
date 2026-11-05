@@ -1,37 +1,33 @@
 import { useState, useEffect } from 'react'
 import { INITIAL_RESERVATIONS, RESTAURANT_CONFIG } from '../data/mockReservations'
 
-// Clave con la que guardamos las reservas en el localStorage del navegador
+// clave del localStorage
 const STORAGE_KEY = 'ambar_reservations_data_v3'
 
-// Hook personalizado: aquí vive TODA la lógica de las reservas.
-// Lo usan tanto el cliente (reservar) como el admin (dashboard, calendario, lista).
+// aquí está la lógica de las reservas
 export function useReservations() {
   const [reservations, setReservations] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
-  // useEffect 1: al abrir la página, cargamos las reservas guardadas.
-  // Si no hay nada guardado, usamos las reservas de ejemplo.
+  // useEffect 1: carga las reservas guardadas
   useEffect(() => {
     const timer = setTimeout(() => {
       const saved = localStorage.getItem(STORAGE_KEY)
       setReservations(saved ? JSON.parse(saved) : INITIAL_RESERVATIONS)
       setIsLoading(false)
-    }, 600) // pequeña espera para simular que carga desde un servidor
+    }, 600) // simula que carga
 
     return () => clearTimeout(timer)
   }, [])
 
-  // useEffect 2: cada vez que cambian las reservas, las guardamos en localStorage.
-  // (Esperamos a que termine de cargar para no borrar lo guardado con una lista vacía.)
+  // useEffect 2: guarda en localStorage cuando cambian
   useEffect(() => {
     if (!isLoading) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(reservations))
     }
   }, [reservations, isLoading])
 
-  // Calcula cuántas mesas y cupos quedan en una fecha y hora.
-  // Las reservas canceladas no cuentan, porque liberan la mesa.
+  // cuántas mesas y cupos quedan en un turno
   const getAvailability = (date, time) => {
     const delTurno = reservations.filter(
       (r) => r.date === date && r.time === time && r.status !== 'cancelled'
@@ -53,7 +49,7 @@ export function useReservations() {
     }
   }
 
-  // Crea una reserva nueva, pero primero revisa que no se duplique ni se pase del aforo.
+  // crea una reserva si hay lugar
   const addReservation = (data) => {
     const guests = Number(data.guests || 2)
     const slot = getAvailability(data.date, data.time)
@@ -80,7 +76,6 @@ export function useReservations() {
       guests,
     }
 
-    // La reserva nueva va primero en la lista
     setReservations([newReservation, ...reservations])
 
     return {
@@ -90,14 +85,14 @@ export function useReservations() {
     }
   }
 
-  // Cambia el estado de una reserva: confirmed, pending o cancelled.
+  // cambia el estado de una reserva
   const updateReservationStatus = (id, newStatus) => {
     const reserva = reservations.find((r) => r.id === id)
     if (!reserva) {
       return { success: false, message: 'Reserva no encontrada.' }
     }
 
-    // Si estaba cancelada y la reactivamos, hay que revisar que todavía haya mesa
+    // si estaba cancelada, revisa que haya mesa
     if (reserva.status === 'cancelled' && newStatus !== 'cancelled') {
       const slot = getAvailability(reserva.date, reserva.time)
       if (slot.availableTables < 1 || slot.remainingSeats < Number(reserva.guests)) {
@@ -113,7 +108,7 @@ export function useReservations() {
     return { success: true, message: `La reserva #${id} ahora está "${newStatus}".` }
   }
 
-  // Estadísticas para el dashboard (se recalculan solas en cada render)
+  // números para el dashboard
   const stats = {
     total: reservations.length,
     confirmed: reservations.filter((r) => r.status === 'confirmed').length,

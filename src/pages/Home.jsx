@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Clock, MapPin, Phone, Mail, Instagram, Compass } from 'lucide-react'
 
-// Página de inicio del restaurante (hero, pilares, experiencias y llamado a reservar).
+// página de inicio
 export default function Home() {
   const [videoError, setVideoError] = useState(false)
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
@@ -18,14 +18,13 @@ export default function Home() {
     }
   }, [])
 
-  // Reproduce el video sin sonido (necesario en celulares)
+  // reproduce el video sin sonido
   useEffect(() => {
     if (videoRef.current && !prefersReducedMotion && !videoError) {
       videoRef.current.muted = true
       const playPromise = videoRef.current.play()
       if (playPromise !== undefined) {
         playPromise.catch(() => {
-          // Si el celular no deja reproducirlo, queda la imagen
         })
       }
     }
@@ -79,15 +78,15 @@ export default function Home() {
 
   return (
     <div className="w-full bg-[#101010] text-[#F3F3F3] font-golos selection:bg-[#6F1D1B] selection:text-[#F3F3F3]">
-      {/* Sección 1: Hero a pantalla completa */}
+      {/* hero */}
       <section className="relative min-h-[100dvh] flex flex-col justify-between overflow-hidden bg-[#101010]">
-        {/* Video de fondo */}
+        {/* video de fondo */}
         <div
           className="absolute inset-0 z-0 bg-[#151515] pointer-events-none select-none overflow-hidden"
           aria-hidden="true"
         >
           {prefersReducedMotion || videoError ? (
-            /* Si el video falla, se muestra una imagen */
+            /* si el video falla */
             <img
               src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=2000&q=80"
               alt="Mesa servida con luz tenue de velas y copas en el salón de Ámbar"
@@ -115,7 +114,6 @@ export default function Home() {
             </video>
           )}
 
-          {/* Capa oscura para que se lea el texto */}
           <div className="absolute inset-0 bg-black/65 pointer-events-none select-none" aria-hidden="true" />
           <div
             className="absolute inset-0 bg-gradient-to-t from-[#101010] via-transparent to-black/40 pointer-events-none select-none"
@@ -123,7 +121,6 @@ export default function Home() {
           />
         </div>
 
-        {/* Texto de arriba */}
         <div className="relative z-10 px-6 sm:px-12 lg:px-20 pt-10 flex items-center justify-between border-b border-[#F3F3F3]/15 pb-6">
           <div className="flex items-center gap-3">
             <span className="w-2 h-2 rounded-full bg-[#6F1D1B]" aria-hidden="true" />
@@ -136,7 +133,6 @@ export default function Home() {
           </span>
         </div>
 
-        {/* Frase y botón de reservar */}
         <div className="relative z-10 px-6 sm:px-12 lg:px-20 py-12 max-w-4xl">
           <p className="text-sm sm:text-base md:text-lg text-[#F3F3F3]/90 font-serif-classic italic max-w-2xl leading-relaxed mb-8">
             "Investigación gastronómica del territorio peruano, fermentos milenarios y fuego vivo."
@@ -160,7 +156,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Título ÁMBAR grande */}
         <div className="relative z-10 px-6 sm:px-12 lg:px-20 overflow-hidden select-none pointer-events-none">
           <h1 className="font-serif-classic text-[18vw] sm:text-[19vw] lg:text-[20vw] font-normal leading-[0.78] tracking-tight text-[#F3F3F3] uppercase translate-y-3 sm:translate-y-6">
             ÁMBAR
@@ -168,7 +163,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sección 2: Franja manifiesto con palabras en secuencia */}
       <section className="bg-[#F3F3F3] text-[#101010] py-8 sm:py-12 border-y border-[#101010]/20 overflow-hidden">
         <div className="px-6 sm:px-12 lg:px-20">
           <div className="flex flex-wrap items-center justify-between gap-y-4 gap-x-6 text-sm sm:text-base md:text-xl font-serif-classic uppercase tracking-[0.3em]">
@@ -188,7 +182,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sección 3: Galería del salón (pliego asimétrico a gran escala) */}
+      {/* galería */}
       <section className="bg-[#101010] text-[#F3F3F3] py-20 sm:py-32 px-6 sm:px-12 lg:px-20 border-b border-[#F3F3F3]/10">
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#F3F3F3]/15">
@@ -205,9 +199,7 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Dos fotos grandes */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-            {/* Foto 1: salón */}
             <div className="lg:col-span-7 relative group overflow-hidden bg-[#181818] min-h-[380px] sm:min-h-[520px]">
               <img
                 src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80"
@@ -222,7 +214,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Foto 2: cocina */}
             <div className="lg:col-span-5 relative group overflow-hidden bg-[#181818] min-h-[380px] sm:min-h-[520px]">
               <img
                 src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1600&q=80"
@@ -238,7 +229,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Botón de reservar */}
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-[#F3F3F3]/10">
             <span className="text-xs uppercase font-mono tracking-[0.2em] text-[#919191]">
               Servicio de almuerzo y cena con aforo garantizado
@@ -254,7 +244,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sección 4: Filosofía (narrativa corrida con líneas finas y fotos) */}
+      {/* filosofía */}
       <section
         id="filosofia"
         className="bg-[#F3F3F3] text-[#101010] py-24 sm:py-36 px-6 sm:px-12 lg:px-20 border-b border-[#101010]/20"
@@ -274,9 +264,7 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Lista de los 3 pilares */}
           <div className="divide-y divide-[#101010]/20 border-y border-[#101010]/20">
-            {/* Pilar 1 */}
             <article className="py-12 sm:py-16 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
               <div className="md:col-span-2">
                 <span className="font-serif-classic text-5xl sm:text-7xl font-normal text-[#6F1D1B] block">
@@ -304,7 +292,6 @@ export default function Home() {
               </div>
             </article>
 
-            {/* Pilar 2 */}
             <article className="py-12 sm:py-16 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
               <div className="md:col-span-2">
                 <span className="font-serif-classic text-5xl sm:text-7xl font-normal text-[#6F1D1B] block">
@@ -332,7 +319,6 @@ export default function Home() {
               </div>
             </article>
 
-            {/* Pilar 3 */}
             <article className="py-12 sm:py-16 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
               <div className="md:col-span-2">
                 <span className="font-serif-classic text-5xl sm:text-7xl font-normal text-[#6F1D1B] block">
@@ -363,7 +349,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sección 5: Experiencias (tira editorial sobre fondo oscuro) */}
+      {/* experiencias */}
       <section className="bg-[#101010] text-[#F3F3F3] py-24 sm:py-36 px-6 sm:px-12 lg:px-20 border-b border-[#F3F3F3]/15">
         <div className="max-w-6xl mx-auto space-y-20">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#F3F3F3]/15">
@@ -380,14 +366,12 @@ export default function Home() {
             </span>
           </div>
 
-          {/* Lista de experiencias */}
           <div className="space-y-16">
             {experiences.map((exp, index) => (
               <div
                 key={exp.id}
                 className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pb-16 border-b border-[#F3F3F3]/10"
               >
-                {/* Foto del plato */}
                 <div className="lg:col-span-5 relative group overflow-hidden bg-[#181818] h-72 sm:h-80">
                   <img
                     src={exp.image}
@@ -400,7 +384,6 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Texto de la experiencia */}
                 <div className="lg:col-span-7 space-y-6">
                   <div>
                     <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#919191] block mb-1">
@@ -441,7 +424,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sección 6: Cierre oscuro con palabra ámbar gigante */}
       <section className="bg-[#101010] text-[#F3F3F3] pt-24 sm:pt-36 pb-16 px-6 sm:px-12 lg:px-20 border-b border-[#F3F3F3]/15 text-center relative overflow-hidden">
         <div className="max-w-4xl mx-auto space-y-8 relative z-10">
           <span className="text-xs uppercase font-mono tracking-[0.3em] text-[#919191] block">
@@ -467,7 +449,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Palabra ÁMBAR grande */}
         <div className="pt-20 select-none pointer-events-none opacity-20">
           <span className="font-serif-classic text-[22vw] leading-none uppercase text-[#F3F3F3] tracking-tighter block">
             ÁMBAR
@@ -475,11 +456,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sección 7: Pie completo en bloque oscuro */}
+      {/* pie de página */}
       <footer className="bg-[#0A0A0A] text-[#F3F3F3] py-20 px-6 sm:px-12 lg:px-20 border-t border-[#F3F3F3]/10">
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-            {/* Columna 1: marca */}
             <div className="space-y-4">
               <span className="font-serif-classic text-2xl uppercase tracking-widest text-[#F3F3F3] block">
                 ÁMBAR
@@ -493,7 +473,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Columna 2: enlaces */}
             <div className="space-y-4">
               <h4 className="text-xs uppercase font-mono tracking-[0.2em] text-[#F3F3F3]">
                 Navegación
@@ -522,7 +501,6 @@ export default function Home() {
               </ul>
             </div>
 
-            {/* Columna 3: horarios */}
             <div className="space-y-4">
               <h4 className="text-xs uppercase font-mono tracking-[0.2em] text-[#F3F3F3]">
                 Horario de Sala
@@ -542,7 +520,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Columna 4: contacto */}
             <div className="space-y-4">
               <h4 className="text-xs uppercase font-mono tracking-[0.2em] text-[#F3F3F3]">
                 Contacto Directo
@@ -574,7 +551,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Copyright */}
           <div className="pt-8 border-t border-[#F3F3F3]/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-[#919191]">
             <span>
               © {new Date().getFullYear()} Ámbar — Cocina Experimental. Todos los derechos reservados.

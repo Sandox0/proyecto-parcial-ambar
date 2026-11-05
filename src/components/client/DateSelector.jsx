@@ -2,8 +2,7 @@ import React, { useEffect } from 'react'
 import { Calendar as CalendarIcon, Clock, Sun, Moon, AlertCircle, Check, Lock } from 'lucide-react'
 import { RESTAURANT_CONFIG, PROTOTYPE_DATE, addDays } from '../../data/mockReservations'
 
-// Paso 1 de la reserva: el cliente elige la fecha y el turno.
-// Los turnos que ya tienen las 4 mesas ocupadas salen como "Agotado".
+// paso 1: elegir fecha y turno
 export default function DateSelector({
   selectedDate,
   onDateChange,
@@ -14,7 +13,7 @@ export default function DateSelector({
   const MESES = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC']
   const DIAS = ['DOM', 'LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB']
 
-  // Los próximos 10 días, empezando por hoy
+  // los próximos 10 días
   const upcomingDays = []
   for (let i = 0; i < 10; i++) {
     const isoDate = addDays(PROTOTYPE_DATE, i)
@@ -29,7 +28,7 @@ export default function DateSelector({
     })
   }
 
-  // Si el turno elegido está lleno en la fecha actual, lo deseleccionamos
+  // si el turno está lleno, se quita
   useEffect(() => {
     if (selectedDate && selectedTime) {
       const slot = getAvailability(selectedDate, selectedTime)
@@ -39,12 +38,12 @@ export default function DateSelector({
     }
   }, [selectedDate, selectedTime, getAvailability])
 
-  // Separamos los turnos en almuerzo (antes de las 17:00) y cena
+  // almuerzo y cena
   const allSlots = RESTAURANT_CONFIG.availableTimeSlots
   const lunchSlots = allSlots.filter((slot) => parseInt(slot.split(':')[0], 10) < 17)
   const dinnerSlots = allSlots.filter((slot) => parseInt(slot.split(':')[0], 10) >= 17)
 
-  // Busca el siguiente horario con mesa libre (para avisar al cliente)
+  // busca el siguiente horario libre
   const getNextAvailableSlot = (currentSlot) => {
     const currentIndex = allSlots.indexOf(currentSlot)
     for (let i = currentIndex + 1; i < allSlots.length; i++) {
@@ -57,7 +56,6 @@ export default function DateSelector({
     return null
   }
 
-  // Dibuja el botón de un turno
   const renderSlotButton = (slot) => {
     const availability = getAvailability(selectedDate, slot)
 
@@ -105,7 +103,6 @@ export default function DateSelector({
           )}
         </div>
 
-        {/* Texto de disponibilidad */}
         <div className="mt-2 text-xs font-golos">
           {isSoldOut ? (
             <div className="space-y-0.5">
@@ -142,7 +139,6 @@ export default function DateSelector({
 
   return (
     <div className="space-y-12 font-golos text-[#101010]">
-      {/* Paso 1: elegir la fecha */}
       <section className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-[#101010]/15">
           <div>
@@ -154,7 +150,6 @@ export default function DateSelector({
             </h2>
           </div>
 
-          {/* Selector de fecha del navegador */}
           <div className="flex items-center gap-2 font-mono text-xs text-[#101010]/80">
             <label htmlFor="custom-date" className="font-medium">
               Fecha específica:
@@ -170,7 +165,6 @@ export default function DateSelector({
           </div>
         </div>
 
-        {/* Botones de los días */}
         <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-2">
           {upcomingDays.map((item) => {
             const isSelected = selectedDate === item.isoDate
@@ -210,7 +204,6 @@ export default function DateSelector({
         </div>
       </section>
 
-      {/* Paso 2: elegir el turno */}
       <section className="space-y-8">
         <div className="pb-4 border-b border-[#101010]/15">
           <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#6F1D1B] font-bold block mb-1">
@@ -224,7 +217,7 @@ export default function DateSelector({
           </p>
         </div>
 
-        {/* Turno almuerzo */}
+        {/* almuerzo */}
         <div className="space-y-4">
           <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[#101010] pb-2 border-b border-[#101010]/10">
             <Sun className="w-4 h-4 text-[#6F1D1B]" aria-hidden="true" />
@@ -235,7 +228,7 @@ export default function DateSelector({
           </div>
         </div>
 
-        {/* Turno cena */}
+        {/* cena */}
         <div className="space-y-4 pt-4">
           <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[#101010] pb-2 border-b border-[#101010]/10">
             <Moon className="w-4 h-4 text-[#6F1D1B]" aria-hidden="true" />
@@ -247,7 +240,6 @@ export default function DateSelector({
         </div>
       </section>
 
-      {/* Resumen del turno elegido */}
       {selectedDate && selectedTime ? (
         <div className="p-5 bg-[#101010] text-[#F3F3F3] border border-[#F3F3F3]/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">

@@ -15,7 +15,7 @@ import {
   ArrowRight,
 } from 'lucide-react'
 
-// Paso 2 de la reserva: ficha técnica con datos del cliente, experiencia y ubicación de mesa.
+// paso 2: formulario con los datos
 export default function ReservationForm({
   formData,
   onChange,
@@ -57,7 +57,7 @@ export default function ReservationForm({
 
   const guestsOptions = [1, 2, 3, 4, 5, 6, 7, 8]
 
-  // Mensajes de error de cada campo
+  // errores de cada campo
   const errors = {
     customerName: !formData.customerName?.trim() ? 'El nombre completo es requerido.' : '',
     email: !formData.email?.trim()
@@ -94,7 +94,6 @@ export default function ReservationForm({
 
   return (
     <form onSubmit={handleSubmit} className="font-golos text-[#101010]">
-      {/* Mensaje de error general */}
       {errorMessage && (
         <div
           role="alert"
@@ -105,11 +104,9 @@ export default function ReservationForm({
         </div>
       )}
 
-      {/* Dos columnas: formulario a la izquierda y resumen a la derecha */}
+      {/* formulario y resumen */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-        {/* Columna del formulario */}
         <div className="lg:col-span-8 space-y-12">
-          {/* Sección 1: número de comensales */}
           <fieldset className="border-0 p-0 m-0 space-y-4">
             <div className="pb-3 border-b border-[#101010]/15 flex items-center justify-between">
               <div>
@@ -157,7 +154,6 @@ export default function ReservationForm({
             )}
           </fieldset>
 
-          {/* Sección 2: experiencia */}
           <fieldset className="border-0 p-0 m-0 space-y-4">
             <div className="pb-3 border-b border-[#101010]/15">
               <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#6F1D1B] font-bold block mb-1">
@@ -214,7 +210,6 @@ export default function ReservationForm({
             </div>
           </fieldset>
 
-          {/* Sección 3: zona del salón */}
           <fieldset className="border-0 p-0 m-0 space-y-4">
             <div className="pb-3 border-b border-[#101010]/15">
               <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#6F1D1B] font-bold block mb-1">
@@ -247,7 +242,7 @@ export default function ReservationForm({
             </div>
           </fieldset>
 
-          {/* Sección 4: datos del titular */}
+          {/* datos del titular */}
           <div className="space-y-6">
             <div className="pb-3 border-b border-[#101010]/15">
               <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#6F1D1B] font-bold block mb-1">
@@ -259,7 +254,6 @@ export default function ReservationForm({
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {/* Nombre completo */}
               <div>
                 <label
                   htmlFor="customerName"
@@ -293,7 +287,6 @@ export default function ReservationForm({
                 )}
               </div>
 
-              {/* Teléfono */}
               <div>
                 <label
                   htmlFor="phone"
@@ -325,7 +318,6 @@ export default function ReservationForm({
                 )}
               </div>
 
-              {/* Correo */}
               <div className="sm:col-span-2">
                 <label
                   htmlFor="email"
@@ -359,7 +351,6 @@ export default function ReservationForm({
             </div>
           </div>
 
-          {/* Sección 5: notas y restricciones */}
           <div className="space-y-4">
             <div className="pb-3 border-b border-[#101010]/15">
               <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#6F1D1B] font-bold block mb-1">
@@ -382,7 +373,6 @@ export default function ReservationForm({
             ></textarea>
           </div>
 
-          {/* Botones de volver y continuar */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-[#101010]/15">
             <button
               type="button"
@@ -404,7 +394,6 @@ export default function ReservationForm({
           </div>
         </div>
 
-        {/* Columna del resumen */}
         <aside className="lg:col-span-4 bg-[#101010] text-[#F3F3F3] p-6 sm:p-8 border border-[#F3F3F3]/15 lg:sticky lg:top-28 space-y-6">
           <div className="border-b border-[#F3F3F3]/15 pb-4">
             <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#919191] block mb-1">
@@ -415,7 +404,6 @@ export default function ReservationForm({
             </h4>
           </div>
 
-          {/* Foto */}
           <div className="relative h-44 overflow-hidden bg-[#181818] border border-[#F3F3F3]/10">
             <img
               src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80"
@@ -430,7 +418,6 @@ export default function ReservationForm({
             </div>
           </div>
 
-          {/* Datos del turno */}
           <div className="space-y-3 text-xs font-mono divide-y divide-[#F3F3F3]/10">
             <div className="pt-2 flex justify-between items-center text-[#919191]">
               <span>Fecha:</span>
@@ -452,7 +439,6 @@ export default function ReservationForm({
             </div>
           </div>
 
-          {/* Botón para cambiar la fecha */}
           <div className="pt-2">
             <button
               type="button"
@@ -463,7 +449,6 @@ export default function ReservationForm({
             </button>
           </div>
 
-          {/* Aviso */}
           <div className="pt-4 border-t border-[#F3F3F3]/10 text-[11px] text-[#919191] font-mono space-y-1">
             <p>• Aforo garantizado de 4 mesas.</p>
             <p>• Cancelación gratuita hasta 24h antes.</p>

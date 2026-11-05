@@ -17,23 +17,20 @@ import { useReservationContext } from '../context/ReservationContext'
 import CalendarGrid from '../components/admin/CalendarGrid'
 import StatusBadge from '../components/common/StatusBadge'
 
-// Calendario del admin: al elegir un día se ven sus reservas y se pueden reactivar las canceladas.
+// calendario del admin
 export default function AdminCalendar() {
   const { reservations, updateReservationStatus, isLoading } = useReservationContext()
 
-  // Mes y año que se están viendo (empieza en el mes actual)
   const [currentYear, setCurrentYear] = useState(Number(PROTOTYPE_DATE.slice(0, 4)))
-  const [currentMonth, setCurrentMonth] = useState(Number(PROTOTYPE_DATE.slice(5, 7)) - 1) // mes actual (0-indexed)
+  const [currentMonth, setCurrentMonth] = useState(Number(PROTOTYPE_DATE.slice(5, 7)) - 1)
 
-  // Día seleccionado (por defecto, hoy)
   const [selectedDate, setSelectedDate] = useState(PROTOTYPE_DATE)
 
-  // Mensajes de error al reactivar una reserva (uno por reserva)
+  // errores al reactivar
   const [reactivationErrors, setReactivationErrors] = useState({})
 
-  // Reservas del día seleccionado
   const selectedDayReservations = reservations.filter((r) => r.date === selectedDate)
-  // Las canceladas se muestran aparte porque no ocupan mesa
+  // las canceladas van aparte
   const activeDayReservations = selectedDayReservations.filter((r) => r.status !== 'cancelled')
   const cancelledDayReservations = selectedDayReservations.filter((r) => r.status === 'cancelled')
 
@@ -53,7 +50,6 @@ export default function AdminCalendar() {
     }
   }
 
-  // Cambiar de mes
   const handlePrevMonth = () => {
     if (currentMonth === 0) {
       setCurrentMonth(11)
@@ -83,7 +79,6 @@ export default function AdminCalendar() {
 
   return (
     <div className="space-y-8">
-      {/* Título */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-[#101010]/15">
         <div>
           <div className="inline-flex items-center gap-2 px-2.5 py-1 border border-[#101010]/20 bg-white text-[#6F1D1B] text-[10px] font-mono font-bold uppercase tracking-wider mb-2">
@@ -98,7 +93,6 @@ export default function AdminCalendar() {
           </p>
         </div>
 
-        {/* Botones para cambiar de mes */}
         <div className="flex items-center border border-[#101010]/20 bg-white">
           <button
             type="button"
@@ -126,9 +120,8 @@ export default function AdminCalendar() {
         </div>
       </div>
 
-      {/* Calendario a la izquierda y detalle del día a la derecha */}
+      {/* calendario y detalle del día */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Calendario del mes */}
         <div className="lg:col-span-2 space-y-4">
           <CalendarGrid
             currentYear={currentYear}
@@ -139,7 +132,6 @@ export default function AdminCalendar() {
           />
         </div>
 
-        {/* Detalle del día elegido */}
         <div className="bg-white border border-[#101010]/20 p-6 sm:p-7 flex flex-col h-fit">
           <div className="flex items-center justify-between pb-4 border-b border-[#101010]/15 mb-4">
             <div>
@@ -155,7 +147,6 @@ export default function AdminCalendar() {
             </span>
           </div>
 
-          {/* Reservas del día */}
           <div className="space-y-4 overflow-y-auto max-h-[600px] pr-1">
             {selectedDayReservations.length === 0 ? (
               <div className="text-center py-12 text-[#101010]/40 space-y-2 border border-dashed border-[#101010]/15 p-6">
@@ -167,7 +158,7 @@ export default function AdminCalendar() {
               </div>
             ) : (
               <>
-                {/* Reservas activas (ocupan mesa) */}
+                {/* reservas activas */}
                 {activeDayReservations.length === 0 && cancelledDayReservations.length > 0 && (
                   <p className="text-xs font-mono text-[#101010]/60 py-2 border-b border-[#101010]/10">
                     No hay mesas activas ocupadas para este día.
@@ -222,7 +213,6 @@ export default function AdminCalendar() {
                       )}
                     </div>
 
-                    {/* Botón para cancelar */}
                     <div className="pt-2 border-t border-[#101010]/15 flex items-center justify-end gap-2">
                       {item.status !== 'confirmed' && (
                         <button
@@ -246,7 +236,7 @@ export default function AdminCalendar() {
                   </div>
                 ))}
 
-                {/* Reservas canceladas (no ocupan mesa) */}
+                {/* reservas canceladas */}
                 {cancelledDayReservations.length > 0 && (
                   <div className="pt-4 border-t border-[#101010]/20 space-y-3">
                     <div className="flex items-center justify-between">
@@ -290,7 +280,6 @@ export default function AdminCalendar() {
                           <span>{item.guests} comensales liberados</span>
                         </div>
 
-                        {/* Botón para reactivar */}
                         <div className="pt-2 border-t border-[#101010]/15 flex flex-wrap items-center justify-end gap-2">
                           {reactivationErrors[item.id] && (
                             <span

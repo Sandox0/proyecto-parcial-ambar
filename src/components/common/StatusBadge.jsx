@@ -1,7 +1,7 @@
 import React from 'react'
 import { CheckCircle2, Clock, XCircle } from 'lucide-react'
 
-// Etiqueta pequeña que muestra el estado de una reserva (confirmada, pendiente o cancelada).
+// etiqueta con el estado de la reserva
 export default function StatusBadge({ status, showIcon = true, className = '' }) {
   const configs = {
     confirmed: {

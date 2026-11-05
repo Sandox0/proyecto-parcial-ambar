@@ -11,7 +11,7 @@ import {
 import { useReservationContext } from '../context/ReservationContext'
 import DataTable from '../components/admin/DataTable'
 
-// Lista de todas las reservas del admin, con opción de confirmar o cancelar.
+// lista de reservas del admin
 export default function AdminReservations() {
   const {
     reservations,
@@ -31,7 +31,7 @@ export default function AdminReservations() {
     }
   }
 
-  // Crea una reserva de prueba
+  // reserva de prueba
   const handleQuickAdd = () => {
     const sampleNames = ['Lucía Ferrando', 'Gonzalo Palacios', 'Fiorella Ramos']
     const randomName = sampleNames[Math.floor(Math.random() * sampleNames.length)]
@@ -57,7 +57,6 @@ export default function AdminReservations() {
 
   return (
     <div className="space-y-8">
-      {/* Título */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-[#101010]/15">
         <div>
           <div className="inline-flex items-center gap-2 px-2.5 py-1 border border-[#101010]/20 bg-white text-[#6F1D1B] text-[10px] font-mono font-bold uppercase tracking-wider mb-2">
@@ -72,7 +71,6 @@ export default function AdminReservations() {
           </p>
         </div>
 
-        {/* Contadores y botón para crear una reserva de prueba */}
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2.5 bg-white px-3.5 py-2 border border-[#101010]/20 text-xs font-mono">
             <span className="flex items-center gap-1.5 text-emerald-800 font-bold">
@@ -100,7 +98,6 @@ export default function AdminReservations() {
         </div>
       </div>
 
-      {/* Mensaje temporal */}
       {notification && (
         <div
           role="status"
@@ -118,7 +115,6 @@ export default function AdminReservations() {
         </div>
       )}
 
-      {/* Tabla de reservas */}
       <DataTable
         reservations={reservations}
         onStatusChange={handleStatusChange}

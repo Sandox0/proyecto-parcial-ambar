@@ -1,6 +1,6 @@
 import React from 'react'
 
-// Tarjeta pequeña del dashboard que muestra un número (ej. reservas de hoy).
+// tarjeta con un número del dashboard
 export default function StatCard({
   title,
   value,
